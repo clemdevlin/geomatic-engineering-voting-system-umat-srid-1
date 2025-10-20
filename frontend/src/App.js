@@ -11,6 +11,7 @@ import { DataTable } from "./components/data-table";
 import { AppSidebar } from "./components/app-sidebar";
 import { ElectionBallotPage } from "./pages/ElectionBallotPage";
 import Page from "./app/dashboard/Page";
+import AdminPage from "./pages/AdminPage";
 
 // Main App Component
 function App() {
@@ -28,7 +29,16 @@ function App() {
   }
 
   if (!user) {
-    return <LoginPage />;
+    return (
+      <>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <Toaster position="top-right" />
+      </>
+    );
   }
 
   return (
@@ -68,6 +78,7 @@ function App() {
             user.type === "admin" ? <CreateElection /> : <Navigate to="/" />
           }
         />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Toaster position="top-right" />

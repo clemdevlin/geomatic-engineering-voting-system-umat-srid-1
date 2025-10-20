@@ -2,8 +2,9 @@ import ElectionBallot from "@/components/ElectionBallot";
 import { API } from "@/components/utils/api";
 import { useAuth } from "@/context/AuthProvider";
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { toast } from "sonner";
 
 export function ElectionBallotPage() {
@@ -43,7 +44,7 @@ export function ElectionBallotPage() {
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       toast.success(data.message || "Vote submitted successfully");
-     redirect("/")
+     window.location.href("/")
       fetchBallot();
     } catch (error) {
       console.log("ERROR SUBMITTING VOTE", error);
@@ -55,6 +56,10 @@ export function ElectionBallotPage() {
 
   return (
     <div className="mt-8">
+      <Link to="/" className="flex items-center ml-24 gap-2 mb-4">
+        <ArrowLeft className="h-4 w-4 text-gray-600" />
+        <div className="text-gray-600 text-sm font-medium">Back to Dashboard</div>
+      </Link>
      {ElectionData ?
       <ElectionBallot
         election={ElectionData?.election}

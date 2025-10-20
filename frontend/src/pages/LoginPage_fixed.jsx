@@ -1,9 +1,11 @@
+import AdminLogin from "@/components/admin/AdminLogin_compact";
 import StudentLogin from "@/components/student/StudentLogin_compact";
-import { Vote, Lock, Users, CheckCircle } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/";
+import { Shield, User, Vote, Lock, Users, CheckCircle } from "lucide-react";
 
 const LoginPage = () => {
   return (
-    <div className="flex lg:flex-row h-screen overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
       {/* Left Side - Responsive Content */}
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex-col justify-center items-center p-4 sm:p-6 lg:p-8 text-white relative order-2 lg:order-1">
         {/* Background Pattern - Responsive */}
@@ -13,13 +15,13 @@ const LoginPage = () => {
           <div className="absolute top-1/2 left-5 sm:left-10 w-4 h-4 sm:w-8 sm:h-8 border border-white rounded-full"></div>
         </div>
 
-        <div className="max-w-sm sm:max-w-md lg:max-w-xl mx-auto text-center relative z-10">
+        <div className="max-w-xs sm:max-w-sm lg:max-w-md mx-auto text-center relative z-10">
           {/* Logo/Brand Section - Responsive */}
           <div className="mb-3 sm:mb-4 lg:mb-6">
-            <div className="mx-auto mb-2 sm:mb-3 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center">
+            <div className="mx-auto mb-2 sm:mb-3 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center">
               <Vote className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
             </div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-1 bg-gradient-to-r from-emerald-400 to-emerald-400 bg-clip-text text-transparent">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-1 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               VoteSecure
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm lg:text-base">
@@ -79,21 +81,46 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Right Side - Student Login Only */}
+      {/* Right Side - Responsive Login Forms */}
       <div className="flex-1 bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col justify-center p-3 sm:p-4 lg:p-6 order-1 lg:order-2">
         <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md mx-auto">
           {/* Header - Responsive */}
           <div className="text-center mb-4 sm:mb-6 lg:mb-8">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">
-              Student Login
+              Welcome Back
             </h2>
             <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
-              Enter your index number and PIN to access the voting system
+              Sign in to access the election system
             </p>
           </div>
 
-          {/* Student Login Form Only */}
-          <StudentLogin />
+          {/* Login Tabs - Responsive */}
+          <Tabs defaultValue="student" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 h-10 sm:h-12 lg:h-14 mb-4 sm:mb-6 lg:mb-8 bg-white shadow-sm border">
+              <TabsTrigger
+                value="student"
+                className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-base data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-all duration-200"
+              >
+                <User className="h-3 w-3 sm:h-4 sm:w-4" />
+                Student
+              </TabsTrigger>
+              <TabsTrigger
+                value="admin"
+                className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-base data-[state=active]:bg-slate-600 data-[state=active]:text-white transition-all duration-200"
+              >
+                <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                Admin
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="student" className="mt-0">
+              <StudentLogin />
+            </TabsContent>
+
+            <TabsContent value="admin" className="mt-0">
+              <AdminLogin />
+            </TabsContent>
+          </Tabs>
 
           {/* Footer - Responsive */}
           <div className="text-center mt-3 sm:mt-4 lg:mt-6 text-xs sm:text-sm text-gray-500">
